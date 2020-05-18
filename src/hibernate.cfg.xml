@@ -6,10 +6,10 @@
 
     <session-factory>
    	    	      
-          <property name="hibernate.connection.username">umcbmhbsjszrpk</property>
-		   <property name="hibernate.connection.password">0c53729ddb2f697f0806e417de02b40c6d386edb0c78ad26abb32b18cbc0d267</property>
+          <property name="hibernate.connection.username">ahiabpuoxwywsk</property>
+		   <property name="hibernate.connection.password">612e9b5d45f7a9bdecb0c774ffdb0d26a826b62c3148e29093b9f30ed83ed737</property>
 		   <property name="hibernate.connection.driver_class">org.postgresql.Driver</property> 
-		   <property name="hibernate.connection.url">jdbc:postgresql://ec2-52-201-55-4.compute-1.amazonaws.com:5432/d932gv1de28jn1</property>
+		   <property name="hibernate.connection.url">jdbc:postgresql://ec2-52-7-39-178.compute-1.amazonaws.com/d508ov5qh5hl3b</property>
         
    	      <!--   <property name="hibernate.connection.username">postgres</property>	
 		    <property name="hibernate.connection.password">root</property>
