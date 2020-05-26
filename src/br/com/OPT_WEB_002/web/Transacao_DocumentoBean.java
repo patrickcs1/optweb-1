@@ -1,4 +1,3 @@
-
 package br.com.OPT_WEB_002.web;
 
 import java.io.ByteArrayInputStream;
@@ -26,6 +25,8 @@ import org.primefaces.model.UploadedFile;
 import br.com.OPT_WEB_002.campo_adicional.*;
 import br.com.OPT_WEB_002.documento.Documento;
 import br.com.OPT_WEB_002.documento.DocumentoRN;
+import br.com.OPT_WEB_002.tipo_documento_transacao.Tipo_Documento_Transacao;
+import br.com.OPT_WEB_002.tipo_documento_transacao.Tipo_Documento_TransacaoRN;
 import br.com.OPT_WEB_002.transacao.*;
 import br.com.OPT_WEB_002.transacao_documento.*;
 import br.com.OPT_WEB_002.usuario.*;
@@ -141,8 +142,7 @@ public class Transacao_DocumentoBean {
 		transacao_DocumentoRN = new Transacao_DocumentoRN();			
 			
 		if (this.transacao_documentoSelecionada.getId_transacao_doc() == null) {
-								
-	
+									
 					this.transacao_documento.setCod_empresa(usuario.getCod_empresa());
 					this.transacao_documento.setCod_filial(usuario.getCod_filial());
 					this.transacao_documento.setCod_unidade(usuario.getCod_unidade());
@@ -238,15 +238,14 @@ public String salvar() throws DAOException {
 				
 							this.transacao_documento.getId_doc().setId_doc(documentoRN.carregar(this.documento.getId_doc()).getId_doc());
 							transacao_DocumentoRN.salvar(this.transacao_documento);
-				 					
-										
+				 															
 								/**if(campo_AdicionalRN.listarPorIdTransCodEmCodFiCodUni(this.transacao_documento.getId_transacao().getId_transacao()).isEmpty()){
 								
 									return "/restrito/documento/documento.xhtml?faces-redirect=true";
 						
 								}**/
-					      
-								return "/restrito/documento/documento.xhtml?id=" + id_tipo_doc +  "&doc=" + this.transacao_documento.getId_doc().getId_doc() + "faces-redirect=true";
+					          
+								return "/restrito/documento/documento.xhtml?id=" + id_tipo_doc +  "&doc=" + this.transacao_documento.getId_doc().getId_doc() + "&idtr=" + this.transacao_documento.getId_transacao().getId_transacao() + "faces-redirect=true";
 						
 		}else{
 			
@@ -416,8 +415,8 @@ public String salvar() throws DAOException {
 
 		return false;
 	}
-
-	public List<Transacao_Documento> listarPorCodEmCodFiCodUni(Usuario usuario) {
+	
+    public List<Transacao_Documento> listarPorCodEmCodFiCodUni(Usuario usuario) {
 		
 		Transacao_DocumentoRN transacao_DocumentoRN = new  Transacao_DocumentoRN();		
 	
@@ -426,8 +425,7 @@ public String salvar() throws DAOException {
 		}else{
 			return null;
 		}	
-	}	
-		
+	}
 	public Transacao_Documento preencherCodDesc(Usuario usuario){
 		
 		TransacaoRN transacaoRN = new TransacaoRN();
@@ -530,21 +528,19 @@ public String salvar() throws DAOException {
 	public List<Transacao_Documento> listarPorIdDoc(Usuario usuario,BigInteger idDocSelecionado,BigInteger id_doc) {
 
 		Transacao_DocumentoRN transacao_DocumentoRN = new Transacao_DocumentoRN();
-		System.out.println("doc selecionado" + idDocSelecionado);
-		System.out.println("id_doc" + id_doc);
+	
 		try {
-
+             
 			
-			if(idDocSelecionado != null){
 			
-				return transacao_DocumentoRN.listarPorIdDoc(idDocSelecionado, usuario.getCod_empresa().getCod_empresa(),usuario.getCod_filial().getCod_filial(), usuario.getCod_unidade().getCod_unidade());
+			if(idDocSelecionado != null){	
 			
+				return  transacao_DocumentoRN.listarPorIdDoc(idDocSelecionado, usuario.getCod_empresa().getCod_empresa(),usuario.getCod_filial().getCod_filial(), usuario.getCod_unidade().getCod_unidade());
 			}else{
 				
 				if(id_doc != null){
-								
-					return transacao_DocumentoRN.listarPorIdDoc(id_doc, usuario.getCod_empresa().getCod_empresa(),
-							usuario.getCod_filial().getCod_filial(), usuario.getCod_unidade().getCod_unidade());
+									
+					return transacao_DocumentoRN.listarPorIdDoc(id_doc, usuario.getCod_empresa().getCod_empresa(),usuario.getCod_filial().getCod_filial(), usuario.getCod_unidade().getCod_unidade());
 				}else{
 					return null;
 				}
@@ -560,6 +556,14 @@ public String salvar() throws DAOException {
 		}
 
 	}
+	
+
+	public String redirecionaCadastro() {
+
+		return "/restrito/documento/documento.xhtml?id=" + id_tipo_doc + "faces-redirect=true";
+
+	}
+	
 	
 	public void setStreamedContent(StreamedContent streamedContent) {
 		this.streamedContent = streamedContent;
@@ -751,4 +755,5 @@ public String salvar() throws DAOException {
 	
 
 }
+
 

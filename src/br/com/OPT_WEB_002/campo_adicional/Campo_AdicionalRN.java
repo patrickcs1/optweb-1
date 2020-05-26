@@ -18,17 +18,19 @@ public class Campo_AdicionalRN {
 
 	public void salvar(Campo_Adicional campoAdicional) throws DAOException {
 	
-		if (listar().size() >= 1) {
+		if (listar().isEmpty()) {
 			
-			campoAdicional.setId_camp_adic(listarUltimoId().getId_camp_adic().add(BigInteger.valueOf(Long.parseLong("1"))));
-	
-			this.campoAdicionalDAO.salvar(campoAdicional);		
+			campoAdicional.setId_camp_adic(BigInteger.valueOf(Long.parseLong("1")));
+			
+			this.campoAdicionalDAO.salvar(campoAdicional);
 					
 		}else{					
 					
-			campoAdicional.setId_camp_adic(BigInteger.valueOf(Long.parseLong("1")));
+			campoAdicional.setId_camp_adic(listarUltimoId().getId_camp_adic().add(BigInteger.valueOf(Long.parseLong("1"))));
+			
+			this.campoAdicionalDAO.salvar(campoAdicional);		
+			
 		
-			this.campoAdicionalDAO.salvar(campoAdicional);
 			
 		}
 	}

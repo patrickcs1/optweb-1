@@ -95,7 +95,7 @@ public class DocumentoCadastroRest {
 									
 		doc.getId_tipo_doc().setId_tipo_doc(BigInteger.valueOf(Long.parseLong(valoresWebService[0])));
 																		
-						for(Layout_Empresa layout_Empresa : Layout_EmpresaRN.listarPor_tipoDocumento(doc.getId_tipo_doc().getId_tipo_doc())){
+						for(Layout_Empresa layout_Empresa : Layout_EmpresaRN.listarPor_tipoDocumentoWebService(doc.getId_tipo_doc().getId_tipo_doc())){
 					
 							doc.getCod_empresa().setCod_empresa(layout_Empresa.getCod_empresa().getCod_empresa());
 							doc.getCod_filial().setCod_filial(layout_Empresa.getCod_filial().getCod_filial());

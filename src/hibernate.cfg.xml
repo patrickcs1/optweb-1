@@ -6,15 +6,15 @@
 
     <session-factory>
    	    	      
-          <property name="hibernate.connection.username">ahiabpuoxwywsk</property>
-		   <property name="hibernate.connection.password">612e9b5d45f7a9bdecb0c774ffdb0d26a826b62c3148e29093b9f30ed83ed737</property>
+        <!--   <property name="hibernate.connection.username">uqwysyvsxghiol</property>
+		   <property name="hibernate.connection.password">616d83833e7cc71b6b64ed124d12d2a540a1c807df526cabe18968f738faf1a9</property>
 		   <property name="hibernate.connection.driver_class">org.postgresql.Driver</property> 
-		   <property name="hibernate.connection.url">jdbc:postgresql://ec2-52-7-39-178.compute-1.amazonaws.com/d508ov5qh5hl3b</property>
+		   <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-161-208-31.compute-1.amazonaws.com/d9b50vjkmadg1</property>-->
         
-   	      <!--   <property name="hibernate.connection.username">postgres</property>	
+   	        <property name="hibernate.connection.username">postgres</property>	
 		    <property name="hibernate.connection.password">root</property>
 		    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property> 
-		    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/opt_web_002</property>-->
+		    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/opt_web_002</property>
 	
 		  <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property> 
 		  <property name="hibernate.current_session_context_class">thread</property> 

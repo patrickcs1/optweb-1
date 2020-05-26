@@ -1,4 +1,3 @@
-
   
 package br.com.OPT_WEB_002.layout_empresa;
 
@@ -123,6 +122,11 @@ public class Layout_EmpresaRN {
 	public List<Layout_Empresa> listarPor_tipoDocumento(BigInteger id_tipo_doc){
 		
 		return layoutEmpresaDAO.listarPor_tipoDocumento(id_tipo_doc);
+	}
+	
+	public List<Layout_Empresa> listarPor_tipoDocumentoWebService(BigInteger id_tipo_doc){
+		
+		return layoutEmpresaDAO.listarPor_tipoDocumentoWebService(id_tipo_doc);
 	}
 	
 	public List<Layout_Empresa> listarPorIdTipoDoc(BigInteger id_tipo_doc){

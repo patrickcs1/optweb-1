@@ -1,4 +1,3 @@
-
 package br.com.OPT_WEB_002.documento;
 
 import java.math.BigInteger;
@@ -28,6 +27,7 @@ public class DocumentoRN {
 		Val_Campos_Trans_DocRN val_Campos_Trans_DocRN = new Val_Campos_Trans_DocRN();
 		Val_Campos_Trans_Doc val_Campos_Trans_Doc;
 		BigInteger incremento = null;
+		BigInteger transacao = null;
 				
 		float resultadoTempo = 0;		
 		float comparador = 0;	
@@ -38,8 +38,7 @@ public class DocumentoRN {
 			incremento = documentoRN.listarUltimoRegistro(documento.getId_tipo_doc().getId_tipo_doc(),documento.getCod_empresa().getCod_empresa(),documento.getCod_filial().getCod_filial(),documento.getCod_unidade().getCod_unidade()).getId();
 			  	
 			documento.setId(incremento.add(BigInteger.valueOf(Long.parseLong("1"))));
-				
-					
+									
 			documentoDAO.salvar(documento);
 		
 		}catch(NullPointerException e) {
@@ -58,53 +57,61 @@ public class DocumentoRN {
 		
 		for(Tipo_Documento_Transacao tipo_Documento_Transacao : tipo_Documento_TransacaoRN.listarPorIdTipoDocCodEmCodFiCodUni(documento.getId_tipo_doc().getId_tipo_doc())){
 			
-			transacao_Documento = new Transacao_Documento();
-		
-			transacao_Documento.getCod_empresa().setCod_empresa(documento.getCod_empresa().getCod_empresa());
-			transacao_Documento.getCod_filial().setCod_filial(documento.getCod_filial().getCod_filial());
-			transacao_Documento.getCod_unidade().setCod_unidade(documento.getCod_unidade().getCod_unidade());
-			transacao_Documento.getId_transacao().setId_transacao(tipo_Documento_Transacao.getId_transacao().getId_transacao());				
-			transacao_Documento.getId_doc().setId_doc(documento.getId_doc());
-					
-			transacao_Documento.setEstado("Nao Iniciado");
+			if(tipo_Documento_Transacao.isCriacao_trans()) {
+								
+				transacao_Documento = new Transacao_Documento();
+				
+				transacao = transacao_Documento.getId_transacao().getId_transacao();
 			
-			if(tipo_Documento_Transacao.getId_transacao().getTratamento_tempo() == true ){
+				transacao_Documento.getCod_empresa().setCod_empresa(documento.getCod_empresa().getCod_empresa());
+				transacao_Documento.getCod_filial().setCod_filial(documento.getCod_filial().getCod_filial());
+				transacao_Documento.getCod_unidade().setCod_unidade(documento.getCod_unidade().getCod_unidade());
+				transacao_Documento.getId_transacao().setId_transacao(tipo_Documento_Transacao.getId_transacao().getId_transacao());				
+				transacao_Documento.getId_doc().setId_doc(documento.getId_doc());
+						
+				transacao_Documento.setEstado("Nao Iniciado");
+				
+				if(tipo_Documento_Transacao.getId_transacao().getTratamento_tempo() == true ){
+						
+						transacao_Documento.setUnidadeTempo(tipo_Documento_Transacao.getId_transacao().getUnidade_tempo());
+						resultadoTempo = (documento.getQuantidade() * tipo_Documento_Transacao.getId_transacao().getTempo_operacao()) / tipo_Documento_Transacao.getId_transacao().getQuantidade();
+				}
+						
+				transacao_Documento.setTempo_previsto(resultadoTempo);
+				
+				if(tipo_Documento_Transacao.getId_transacao().getTratamento_tempo() == false){
+										
+						transacao_Documento.setUnidadeTempo(tipo_Documento_Transacao.getId_transacao().getUnidade_tempo());
+						transacao_Documento.setTempo_previsto(tipo_Documento_Transacao.getId_transacao().getTempo_operacao());								
+				}
 					
-					transacao_Documento.setUnidadeTempo(tipo_Documento_Transacao.getId_transacao().getUnidade_tempo());
-					resultadoTempo = (documento.getQuantidade() * tipo_Documento_Transacao.getId_transacao().getTempo_operacao()) / tipo_Documento_Transacao.getId_transacao().getQuantidade();
+					
+				if(documento.getQuantidade() == comparador){
+					
+						transacao_Documento.setTempo_previsto(comparador);
+				}	
+					
+				transacao_DocumentoRN.salvar(transacao_Documento);
+				
 			}
-					
-			transacao_Documento.setTempo_previsto(resultadoTempo);
-			
-			if(tipo_Documento_Transacao.getId_transacao().getTratamento_tempo() == false){
-									
-					transacao_Documento.setUnidadeTempo(tipo_Documento_Transacao.getId_transacao().getUnidade_tempo());
-					transacao_Documento.setTempo_previsto(tipo_Documento_Transacao.getId_transacao().getTempo_operacao());								
-			}
-				
-				
-			if(documento.getQuantidade() == comparador){
-				
-					transacao_Documento.setTempo_previsto(comparador);
-			}	
-				
-			transacao_DocumentoRN.salvar(transacao_Documento);
-			
-				for(Campo_Adicional campo_Adicional : campo_AdicionalRN.listarPorIdTransCodEmCodFiCodUni(transacao_Documento.getId_transacao().getId_transacao())){
-			
-						val_Campos_Trans_Doc = new  Val_Campos_Trans_Doc();
-																					
-						val_Campos_Trans_Doc.getId_trans_doc().setId_transacao_doc(transacao_Documento.getId_transacao_doc());							
-						val_Campos_Trans_Doc.getCod_empresa().setCod_empresa(campo_Adicional.getCod_empresa().getCod_empresa());
-						val_Campos_Trans_Doc.getCod_filial().setCod_filial(campo_Adicional.getCod_filial().getCod_filial());
-						val_Campos_Trans_Doc.getCod_unidade().setCod_unidade(campo_Adicional.getCod_unidade().getCod_unidade());
-						val_Campos_Trans_Doc.getId_camp_adic().setId_camp_adic(campo_Adicional.getId_camp_adic());
-																					
-						val_Campos_Trans_DocRN.salvar(val_Campos_Trans_Doc);	
-					
-				}		
 		
 		}
+		
+		for(Campo_Adicional campo_Adicional : campo_AdicionalRN.listarPorIdTransCodEmCodFiCodUni(transacao)){
+								
+					
+					val_Campos_Trans_Doc = new  Val_Campos_Trans_Doc();
+																				
+					val_Campos_Trans_Doc.getId_trans_doc().setId_transacao_doc(transacao_DocumentoRN.carregar(transacao).getId_transacao_doc());							
+					val_Campos_Trans_Doc.getCod_empresa().setCod_empresa(campo_Adicional.getCod_empresa().getCod_empresa());
+					val_Campos_Trans_Doc.getCod_filial().setCod_filial(campo_Adicional.getCod_filial().getCod_filial());
+					val_Campos_Trans_Doc.getCod_unidade().setCod_unidade(campo_Adicional.getCod_unidade().getCod_unidade());
+					val_Campos_Trans_Doc.getId_camp_adic().setId_camp_adic(campo_Adicional.getId_camp_adic());
+																				
+					val_Campos_Trans_DocRN.salvar(val_Campos_Trans_Doc);					
+			}	
+		
+		
 		
 	}
 		
@@ -122,7 +129,7 @@ public class DocumentoRN {
 		Val_Campos_Trans_DocRN val_Campos_Trans_DocRN = new Val_Campos_Trans_DocRN();
 		Val_Campos_Trans_Doc val_Campos_Trans_Doc;
 				
-		documento.setId(BigInteger.valueOf(Long.parseLong(String.valueOf(listarPorCodEmCodFiCodUni(documento.getCod_empresa().getCod_empresa(),documento.getCod_filial().getCod_filial(),documento.getCod_unidade().getCod_unidade()).size()))).add(BigInteger.valueOf(Long.parseLong("1")))) ;
+		documento.setId(BigInteger.valueOf(Long.parseLong(String.valueOf(listarPorCodEmCodFiCodUniWebService(documento.getCod_empresa().getCod_empresa(),documento.getCod_filial().getCod_filial(),documento.getCod_unidade().getCod_unidade()).size()))).add(BigInteger.valueOf(Long.parseLong("1")))) ;
 	
 		 this.documentoDAO.cadastrarDocumentoWebService(documento);
 		
@@ -187,6 +194,10 @@ public class DocumentoRN {
 		
 	public List<Documento> listarPorCodEmCodFiCodUni(Integer cod_empresa, Integer cod_filial, Integer cod_unidade) {		
 		return this.documentoDAO.listarPorCodEmCodFiCodUni(cod_empresa,cod_filial, cod_unidade);
+	}
+	
+	public List<Documento> listarPorCodEmCodFiCodUniWebService(Integer cod_empresa, Integer cod_filial, Integer cod_unidade) {		
+		return this.documentoDAO.listarPorCodEmCodFiCodUniWebService(cod_empresa,cod_filial, cod_unidade);
 	}
 	
 	public List<Documento> listarPorIdTipoDocCodEmpCodFiCodUni(BigInteger id_tipo_doc,Integer cod_empresa,Integer cod_filial,Integer cod_unidade){		

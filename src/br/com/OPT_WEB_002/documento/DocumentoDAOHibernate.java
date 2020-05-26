@@ -83,7 +83,7 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
 	public List<Documento> listarPorCodEmCodFiCodUni(Integer cod_empresa, Integer cod_filial, Integer cod_unidade) {
 			
 		String hql = "select tb from documento tb where tb.cod_empresa = :cod_empresa and tb.cod_filial = :cod_filial and tb.cod_unidade = :cod_unidade";
-
+		
 		Query consulta = this.session.createQuery(hql);
 
 		consulta.setInteger("cod_empresa", cod_empresa);
@@ -111,14 +111,9 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
 	/**Método para gravar dados para a tabela documento por webService **/
 	@Override
 	public void cadastrarDocumentoWebService(Documento documento) {
-		
-		
-		session = HibernateUtil.getSessionFactory().getCurrentSession();
-		@SuppressWarnings("unused")
-		Transaction trans = session.beginTransaction();
-		session.save(documento);
-		
-		
+				
+		session = HibernateUtil.getSessionFactory().getCurrentSession();	
+		session.save(documento);		
 		this.session.getTransaction().commit();
 		
 	}
@@ -235,6 +230,25 @@ public class DocumentoDAOHibernate implements DocumentoDAO {
 		
 		consulta.setBigInteger("id_tipo_doc", id_tipo_doc);
 			
+		return consulta.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Documento> listarPorCodEmCodFiCodUniWebService(Integer cod_empresa, Integer cod_filial, Integer cod_unidade) {
+			
+		String hql = "select tb from documento tb where tb.cod_empresa = :cod_empresa and tb.cod_filial = :cod_filial and tb.cod_unidade = :cod_unidade";
+
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		@SuppressWarnings("unused")
+		Transaction trans = session.beginTransaction();
+		
+		Query consulta = this.session.createQuery(hql);
+
+		consulta.setInteger("cod_empresa", cod_empresa);
+		consulta.setInteger("cod_filial", cod_filial);
+		consulta.setInteger("cod_unidade", cod_unidade);
+
 		return consulta.list();
 	}
 

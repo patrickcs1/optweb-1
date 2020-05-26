@@ -59,6 +59,7 @@ public class DocumentoBean implements Serializable {
 	private BigInteger idDocDetalhe = null;
 	private List<modeloColuna> columns;
 	private boolean desabilitaCampoIncremento = false;	
+	private Usuario_Tipo_Documento usuario_Tipo_Documento = new Usuario_Tipo_Documento();
 					
 	public DocumentoBean() {}
 		   	   	
@@ -78,6 +79,9 @@ public class DocumentoBean implements Serializable {
 	public LazyDataModel<Documento> lazyDocumento(Usuario usuario) {
      
 		if(id_tipo_doc != null) {
+			
+		Usuario_Tipo_DocumentoRN usuario_Tipo_DocumentoRN = new Usuario_Tipo_DocumentoRN();
+		usuario_Tipo_Documento = usuario_Tipo_DocumentoRN.carregarPorIdUsuIdTipo(usuario.getId_usuario(),id_tipo_doc);
 		/**objeto da classe LazyDocumento recebe uma lista de valores pelo campo id_tipo_doc**/
 		lazymodel = new LazyDocumento(listarPorIdTipoDocCodEmpCodFiCodUni(usuario));	
 		
@@ -2101,7 +2105,7 @@ public class DocumentoBean implements Serializable {
 
 		String p_id_doc = idDocDetalhe.toString();
 
-		String url = "https://optweb-3.herokuapp.com/restrito/rastreabilidade/rastreabilidade.xhtml?id=" + p_id_doc;
+		String url = "https://optweb-1.herokuapp.com/restrito/rastreabilidade/rastreabilidade.xhtml?id=" + p_id_doc;
 
 		try {
 
@@ -2232,7 +2236,7 @@ public class DocumentoBean implements Serializable {
 	   
 	public String adicionarValorUrl(){
 			   
-		   String url = "http://optweb-3.herokuapp.com/restrito/rastreabilidade/rastreabilidade.xhtml?tipo="; 
+		   String url = "http://optweb-1.herokuapp.com/restrito/rastreabilidade/rastreabilidade.xhtml?tipo="; 
 		
 		   url = url + String.valueOf(id_tipo_doc) + "&val=";
 	
@@ -2608,6 +2612,14 @@ public class DocumentoBean implements Serializable {
 		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
+	}
+
+	public Usuario_Tipo_Documento getUsuario_Tipo_Documento() {
+		return usuario_Tipo_Documento;
+	}
+
+	public void setUsuario_Tipo_Documento(Usuario_Tipo_Documento usuario_Tipo_Documento) {
+		this.usuario_Tipo_Documento = usuario_Tipo_Documento;
 	}
 
 }

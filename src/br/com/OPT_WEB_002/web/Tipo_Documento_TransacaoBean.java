@@ -1,6 +1,7 @@
 package br.com.OPT_WEB_002.web;
 
 
+import java.math.BigInteger;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -24,6 +25,7 @@ public class Tipo_Documento_TransacaoBean {
 	private Usuario usuario;
 	private Tipo_Documento_TransacaoRN tipo_Documento_TransacaoRN;
 	private UsuarioBean usuarioBean = new UsuarioBean();
+	
 				
 	public Tipo_Documento_TransacaoBean(){}
 	
@@ -63,18 +65,13 @@ public class Tipo_Documento_TransacaoBean {
 								
 				if(tipo_Documento_TransacaoSelecionado.getId_tipo_doc_trans() == null){						
 			
-					if(tipo_Documento_TransacaoRN.carregarPorIdTransIdTipo(this.tipo_Documento_Transacao.getId_transacao().getId_transacao(),this.tipo_Documento_Transacao.getId_tipo_doc().getId_tipo_doc()) != null){
-										
-						FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning!", "Tipo Documento ja foi cadastrado!"));
-						return null;
-						
-					}else{
+		
 						
 
 						tipo_Documento_TransacaoRN.salvar(this.tipo_Documento_Transacao);				
 						return "/restrito/tipo_documento_transacao/tipo_documento_transacao.xhtml?faces-redirect=true";		
 						
-					}
+					
 			
 				}else{
 					
@@ -143,6 +140,14 @@ public class Tipo_Documento_TransacaoBean {
 
 		return false;
 	}
+	
+	public List<Tipo_Documento_Transacao> listarPorTipoCodEmCodFiCodUni(BigInteger id_tipo_doc){
+		
+		Tipo_Documento_TransacaoRN tipo_Documento_TransacaoRN = new Tipo_Documento_TransacaoRN();
+		return tipo_Documento_TransacaoRN.listarPorIdTipoDocCodEmCodFiCodUni(id_tipo_doc);
+		
+	}
+	
 
 
 	public Tipo_Documento_Transacao getTipo_Documento_Transacao() {
@@ -248,4 +253,3 @@ public class Tipo_Documento_TransacaoBean {
 	
 
 }
-

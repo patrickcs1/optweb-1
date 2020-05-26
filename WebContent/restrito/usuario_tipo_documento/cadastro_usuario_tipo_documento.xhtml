@@ -69,7 +69,7 @@
 			           		            		    		  
           		    		           		    		  		           		   		
 			           		   <p:outputLabel value="Usuario:" for = "idUsu"/>				
-							   <p:selectOneMenu  id="idUsu" value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).id_usuario.id_usuario}" style="width:200px">								
+							   <p:selectOneMenu  id="idUsu" value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).id_usuario.id_usuario}" style="width:200px" disabled="#{usuario_tipo_docBean.desabilitarCampos()}">								
 									
 								   <f:selectItem noSelectionOption="true" itemLabel=" Selecione "/>
 								   <f:selectItems value="#{usuarioBean.listar()}" var="usuario" itemValue="#{usuario.id_usuario}" itemLabel="#{usuario.nome}"/>
@@ -77,11 +77,55 @@
 							   </p:selectOneMenu>	
 								
 							   <p:outputLabel value="Tipo Documento:" for = "idtipo"/>				
-							   <p:selectOneMenu  id="idtipo" value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).id_tipo_doc.id_tipo_doc}" style="width:200px">																	
+							   <p:selectOneMenu  id="idtipo" value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).id_tipo_doc.id_tipo_doc}" style="width:200px" disabled="#{usuario_tipo_docBean.desabilitarCampos()}">																	
 									<f:selectItem noSelectionOption="true" itemLabel=" Selecione "/>
 									<f:selectItems value="#{tipoDocumentoBean.listarPorCodEmCodFiCodUni(usuarioBean.usuarioLogin)}" var="tipoDoc" itemValue="#{tipoDoc.id_tipo_doc}" itemLabel="#{tipoDoc.descricao}"/>
 									<p:ajax event="change" update="idcodCampo"/>															
 							   </p:selectOneMenu>	
+							   
+							     <p:panelGrid columns="2" >							 
+							 
+								   <p:column>
+	          		    		   		<p:outputLabel value="Ini Doc: " for="idinidoc"/>         		    		 
+	          		    		   </p:column>
+	          		    		   <p:selectBooleanCheckbox value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).iniciar_documento}" id="idinidoc" style="margin-right:20px"/>		   
+	          		    		   
+				           		   <p:column>
+	          		    		   		<p:outputLabel value="Alt Doc: " for="idaltdoc"/>         		    		 
+	          		    		   </p:column>
+	          		    		   <p:selectBooleanCheckbox value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).alt_documento}" id="idaltdoc" style="margin-right:20px"/>
+	          		    		   
+	          		    		     
+				           		   <p:column>
+	          		    		   		<p:outputLabel value="Exc Doc: " for="idexcdoc"/>         		    		 
+	          		    		   </p:column>
+	          		    		   <p:selectBooleanCheckbox value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).exc_documento}" id="idexcdoc" style="margin-right:20px"/>
+	          		    		   
+	          		    		   <p:column>    
+	          		    		   		<p:outputLabel value="Ini Trans: " for="idinitrans"/>         		    		 
+	          		    		   </p:column>
+	          		    		   <p:selectBooleanCheckbox value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).iniciar_transacao}" id="idinitrans" style="margin-right:20px"/>
+								     		  	
+          		    			</p:panelGrid>   
+          		    		
+          		    		 	<p:panelGrid columns="2"> 
+          		    		          		    		                     		    		      	     
+				           		   <p:column>
+	          		    		   		<p:outputLabel value="Alt Camp Ad: " for="idaltcamp"/>         		    		 
+	          		    		   </p:column>
+	          		    		   <p:selectBooleanCheckbox value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).alt_camp_ad}" id="idaltcamp" style="margin-right:20px"/>	
+				           		          		    		      	     
+				           		   <p:column>
+	          		    		   		<p:outputLabel value="Alt Trans: " for="idalttrans"/>         		    		 
+	          		    		   </p:column>
+	          		    		   <p:selectBooleanCheckbox value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).alt_transacao}" id="idalttrans" style="margin-right:20px"/>
+	          		    		          		    		      	     
+				           		   <p:column>
+	          		    		   		<p:outputLabel value="Exc Trans: " for="idexctrans"/>         		    		 
+	          		    		   </p:column>
+	          		    		   <p:selectBooleanCheckbox value="#{usuario_tipo_docBean.iniciar(usuarioBean.usuarioLogin).exc_transacao}" id="idexctrans" style="margin-right:20px"/>
+          		    		  		                   		    		     		    		   
+			           			</p:panelGrid>
 							   								 
    							<p:outputLabel value="Cod Campo:" for="idcodCampo"/>
 			           		  	

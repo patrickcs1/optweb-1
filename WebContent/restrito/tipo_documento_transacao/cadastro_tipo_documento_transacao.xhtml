@@ -77,6 +77,11 @@
 			           		   	   <p:outputLabel style="width:325px;margin-left:10px" value = "#{usuarioBean.usuarioLogin.cod_unidade.descricao}" />			                     		                     			           					           		       	
 			           		   </p:column>  
 			           		   
+			           		    <p:column>
+			           		    	<p:outputLabel value="Gera Transação:"/>
+							    </p:column>	
+									<p:selectBooleanCheckbox value="#{tipoDocTransBean.iniciar(usuarioBean.usuarioLogin).criacao_trans}" id="idgeratrans" style="margin-right:20px"/>
+   						  	   						  	
 			           		   					           		 			           		   		           		              		   			           		   
 			           		   <p:outputLabel value="Tipo Documento:" for = "idDoc"/>
 			           		   			           		   

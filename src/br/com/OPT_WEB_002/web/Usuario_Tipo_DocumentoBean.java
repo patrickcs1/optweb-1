@@ -14,11 +14,11 @@ import br.com.OPT_WEB_002.usuario_tipo_documento.*;
 
 
 @javax.faces.bean.ManagedBean(name = "usuario_tipo_docBean")
-@SessionScoped
+@ViewScoped
 public class Usuario_Tipo_DocumentoBean implements Serializable {
 	
 	/**
-	 * 
+	fg* 
 	 */
 	private static final long serialVersionUID = 1L;
 	private BigInteger id_usuario_tipo_documento;
@@ -104,7 +104,7 @@ public class Usuario_Tipo_DocumentoBean implements Serializable {
 			}
 						
 		}else{
-			System.out.println("alterar");
+		
 			usuario_Tipo_DocumentoRN.alterar(usuario_Tipo_Documento);			
 			return "/restrito/usuario_tipo_documento/usuario_tipo_documento.xhtml?faces-redirect=true";
 		}
@@ -113,11 +113,35 @@ public class Usuario_Tipo_DocumentoBean implements Serializable {
 	
 	public List<Usuario_Tipo_Documento> listarPorIdUsuarioCodEmCodFiCodUni(Usuario usuario) {
 	
-		 usuario_Tipo_DocumentoRN = new Usuario_Tipo_DocumentoRN();
-		
+		 usuario_Tipo_DocumentoRN = new Usuario_Tipo_DocumentoRN();		
 		return usuario_Tipo_DocumentoRN.listarPorIdUsuarioCodEmCodFiCodUni(usuario.getId_usuario(),usuario.getCod_empresa().getCod_empresa(),usuario.getCod_filial().getCod_filial(),usuario.getCod_unidade().getCod_unidade());
 		 		
 	}
+	
+	public boolean permissaoAcoesUsuario(boolean permissao) {		
+		
+		if(permissao) {
+			
+			return false;
+		}else {
+			
+			return true;
+		}
+		
+	}
+	
+
+	public boolean desabilitarCampos() {
+		
+		if(id_usuario_tipo_documento != null) {
+			
+			return true;
+		}else {
+			
+			return false;
+		}
+	}
+
 
 	public BigInteger getId_usuario_tipo_documento() {
 		return id_usuario_tipo_documento;

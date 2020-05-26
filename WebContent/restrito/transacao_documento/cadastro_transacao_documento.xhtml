@@ -40,7 +40,7 @@
    							<p:outputLabel value="Transação:" for="idTrans"/>
    							<p:selectOneMenu style="width:120px" value="#{transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin).id_transacao.id_transacao}" id = "idTrans" disabled="#{transacaoDocumentoBean.desabilitarCampos()}">
    									<f:selectItem itemLabel="  Selecione  " noSelectionOption="true"/>   								
-   									<f:selectItems value ="#{transacaoBean.listarPorCodEmCodFiCodUni(usuarioBean.usuarioLogin)}" var="Trans" itemLabel="#{Trans.descricao}" itemValue="#{Trans.id_transacao}"/>
+   									<f:selectItems value ="#{tipoDocTransBean.listarPorTipoCodEmCodFiCodUni(transacaoDocumentoBean.id_tipo_doc)}" var="Trans" itemLabel="#{Trans.id_transacao.descricao}" itemValue="#{Trans.id_transacao.id_transacao}"/>
    									<p:ajax event="change" listener="#{transacaoDocumentoBean.preencherCodDesc(usuarioBean.usuarioLogin)}" update="idCod idDesc"/>
    							</p:selectOneMenu>	
    							
@@ -81,8 +81,7 @@
 									style="width:25px"/>								
 								<p:outputLabel style="width:325px;margin-left:10px" value = "#{usuarioBean.usuarioLogin.cod_unidade.descricao}" />	 
 								</p:column >
-   														
-   							   							 							
+   											  							   							 							
    								<p:outputLabel for = "idCod" value="Código:"/>
    								<p:inputText id = "idCod" value="#{transacaoDocumentoBean.transacao_documento.id_transacao.descricao}" maxlength="15" size = "15" style = "width:auto" disabled ="true"/>
    							  							
@@ -94,7 +93,7 @@
    						  				
    						  		<p:outputLabel  value= "Data Final:" for="idDatFim" rendered="#{transacaoDocumentoBean.desabilitarCampos()}" />			
    						  		<p:calendar rendered="#{transacaoDocumentoBean.desabilitarCampos()}"  pattern="dd-MM-yyyy" mask="true" id = "idDatFim"  value="#{transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin).data_fim}"/>	
-   						  	   						  				
+   						  	   	   						  	  			
    						  		<p:outputLabel rendered="#{transacaoDocumentoBean.transacao_documentoSelecionada.id_transacao_doc != null}"  value= "Horário Inicial:" for="idHoIni"/>			
    						  		<p:calendar  rendered="#{transacaoDocumentoBean.transacao_documentoSelecionada.id_transacao_doc != null}"  pattern="HH:mm" mask="true" id = "idHoIni"  value="#{transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin).horario_ini}" timeOnly="#{transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin).horario_ini == null}"/>			
    						  	   						  				
@@ -125,21 +124,20 @@
 										<f:selectItem  itemValue="Minutos" itemLabel="Minutos"/>
 										<f:selectItem  itemValue="Horas" itemLabel="Horas"/>
 										<f:selectItem  itemValue="Dias" itemLabel="Dias"/>
-								    </p:selectOneMenu>						   		   		
-						   	
-						   	   							 							
+								    </p:selectOneMenu>	
+						   							   	   							 							
    							<p:outputLabel  value="Tempo:"/>
    							<p:inputText  value="#{transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin).tempo_previsto}" maxlength="15" size = "15" style = "width:auto" />
 						   						   		   						   						   		   						   							 
    							<p:outputLabel for = "idObs" value="Observação:"/>
-   							<p:inputTextarea id = "idObs"  value="#{transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin).observacao}"  maxlength="60" size = "60" style = "width:auto" />
+   							<p:inputTextarea id = "idObs"  value="#{transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin).observacao}"  maxlength="300" size = "300" style = "width:auto" />
    							 
    							<p:outputLabel value="Arquivo:"/> 
    							<p:fileUpload  allowTypes="pdf,xlsx,doc,txt,html,jpeg,png,bmp" skinSimple="true" label="#{transacaoDocumentoBean.descricaoDeAnexo(transacaoDocumentoBean.iniciar(usuarioBean.usuarioLogin))}" value="#{transacaoDocumentoBean.arquivo}" mode="simple" style="width:250px"/> 
    				  							    							    							 							  						     							  							  							
    							<p:commandButton action = "#{transacaoDocumentoBean.salvar}" value="Salvar" id = "salvar" ajax="false" onclick="PF('dlg').show()"/>
    							
-   							<p:commandButton icon="ui-icon-arrowrefresh-1-w" action="transacao_documento"  style="width:30px;height:30px"/>			           		   				 
+   							<p:commandButton icon="ui-icon-arrowrefresh-1-w"  action="#{transacaoDocumentoBean.redirecionaCadastro()}"   style="width:30px;height:30px"/>			           		   				 
    							   			  						
    						</p:panelGrid>
    					

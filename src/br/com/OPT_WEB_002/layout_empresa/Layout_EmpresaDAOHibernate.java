@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.*;
 import org.hibernate.*;
 import br.com.OPT_WEB_002.util.DAOException;
+import br.com.OPT_WEB_002.util.HibernateUtil;
 public class Layout_EmpresaDAOHibernate implements Layout_EmpresaDAO {
 
 	private Session session;
@@ -247,23 +248,36 @@ public class Layout_EmpresaDAOHibernate implements Layout_EmpresaDAO {
 
 		@SuppressWarnings("unchecked")
 		public List<Layout_Empresa> listarPor_tipoDocumento(BigInteger id_tipo_doc){
+										
+			String hql = "select tb from layout_empresa tb where tb.id_tipo_doc = :id_tipo_doc";
+			Query consulta = this.session.createQuery(hql);
 			
-			/**List<Layout_Empresa> lista = new ArrayList<Layout_Empresa>();
+		   	consulta.setBigInteger("id_tipo_doc",id_tipo_doc);
+							
+			return consulta.list();
+			
+		}
+		
+
+		@SuppressWarnings("unchecked")
+		public List<Layout_Empresa> listarPor_tipoDocumentoWebService(BigInteger id_tipo_doc){
+			
+			List<Layout_Empresa> lista = new ArrayList<Layout_Empresa>();
 			
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			@SuppressWarnings("unused")
-			Transaction trans = session.beginTransaction();**/
+			Transaction trans = session.beginTransaction();
 						
 			String hql = "select tb from layout_empresa tb where tb.id_tipo_doc = :id_tipo_doc";
 			Query consulta = this.session.createQuery(hql);
 			
 		   	consulta.setBigInteger("id_tipo_doc",id_tipo_doc);
 					
-			/**lista = consulta.list();
+			lista = consulta.list();
 			
-			this.session.getTransaction().commit();**/
+			this.session.getTransaction().commit();
 			
-			return consulta.list();
+			return lista;
 			
 		}
 
@@ -272,8 +286,4 @@ public class Layout_EmpresaDAOHibernate implements Layout_EmpresaDAO {
 	
 	
 	
-
-
-
-
 

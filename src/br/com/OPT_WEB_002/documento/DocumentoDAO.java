@@ -38,5 +38,7 @@ public interface DocumentoDAO {
 	
 	public List<Documento> listarPorIdTipoDoc(BigInteger id_tipo_doc);
 	
+	public List<Documento> listarPorCodEmCodFiCodUniWebService(Integer cod_empresa, Integer cod_filial, Integer cod_unidade);
+	
 				
 }

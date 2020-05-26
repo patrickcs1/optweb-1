@@ -42,5 +42,7 @@ public interface Layout_EmpresaDAO {
 	
 	public void iniciaSessao();
 	
+	public List<Layout_Empresa> listarPor_tipoDocumentoWebService(BigInteger id_tipo_doc);
+	
 	
 }

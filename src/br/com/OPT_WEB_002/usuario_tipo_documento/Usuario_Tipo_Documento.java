@@ -3,6 +3,7 @@ package br.com.OPT_WEB_002.usuario_tipo_documento;
 import java.io.Serializable;
 import java.math.BigInteger;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,6 +51,27 @@ public class Usuario_Tipo_Documento implements Serializable {
 	private String cod_campo;
 	
 	private String conteudo;
+	
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean iniciar_documento;
+	
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean alt_documento;
+	
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean exc_documento;
+	
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean iniciar_transacao;
+		
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean alt_transacao;
+	
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean exc_transacao;
+	
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")
+	private boolean alt_camp_ad;
 	
 	public Usuario_Tipo_Documento(){
 		
@@ -119,14 +141,21 @@ public class Usuario_Tipo_Documento implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (alt_camp_ad ? 1231 : 1237);
+		result = prime * result + (alt_documento ? 1231 : 1237);
+		result = prime * result + (alt_transacao ? 1231 : 1237);
 		result = prime * result + ((cod_campo == null) ? 0 : cod_campo.hashCode());
 		result = prime * result + ((cod_empresa == null) ? 0 : cod_empresa.hashCode());
 		result = prime * result + ((cod_filial == null) ? 0 : cod_filial.hashCode());
 		result = prime * result + ((cod_unidade == null) ? 0 : cod_unidade.hashCode());
 		result = prime * result + ((conteudo == null) ? 0 : conteudo.hashCode());
+		result = prime * result + (exc_documento ? 1231 : 1237);
+		result = prime * result + (exc_transacao ? 1231 : 1237);
 		result = prime * result + ((id_tipo_doc == null) ? 0 : id_tipo_doc.hashCode());
 		result = prime * result + ((id_usuario == null) ? 0 : id_usuario.hashCode());
 		result = prime * result + ((id_usuario_tipo_doc == null) ? 0 : id_usuario_tipo_doc.hashCode());
+		result = prime * result + (iniciar_documento ? 1231 : 1237);
+		result = prime * result + (iniciar_transacao ? 1231 : 1237);
 		return result;
 	}
 
@@ -139,6 +168,12 @@ public class Usuario_Tipo_Documento implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario_Tipo_Documento other = (Usuario_Tipo_Documento) obj;
+		if (alt_camp_ad != other.alt_camp_ad)
+			return false;
+		if (alt_documento != other.alt_documento)
+			return false;
+		if (alt_transacao != other.alt_transacao)
+			return false;
 		if (cod_campo == null) {
 			if (other.cod_campo != null)
 				return false;
@@ -164,6 +199,10 @@ public class Usuario_Tipo_Documento implements Serializable {
 				return false;
 		} else if (!conteudo.equals(other.conteudo))
 			return false;
+		if (exc_documento != other.exc_documento)
+			return false;
+		if (exc_transacao != other.exc_transacao)
+			return false;
 		if (id_tipo_doc == null) {
 			if (other.id_tipo_doc != null)
 				return false;
@@ -178,6 +217,10 @@ public class Usuario_Tipo_Documento implements Serializable {
 			if (other.id_usuario_tipo_doc != null)
 				return false;
 		} else if (!id_usuario_tipo_doc.equals(other.id_usuario_tipo_doc))
+			return false;
+		if (iniciar_documento != other.iniciar_documento)
+			return false;
+		if (iniciar_transacao != other.iniciar_transacao)
 			return false;
 		return true;
 	}
@@ -200,6 +243,66 @@ public class Usuario_Tipo_Documento implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public boolean isIniciar_documento() {
+		return iniciar_documento;
+	}
+
+	public void setIniciar_documento(boolean iniciar_documento) {
+		this.iniciar_documento = iniciar_documento;
+	}
+
+	public boolean isAlt_documento() {
+		return alt_documento;
+	}
+
+	public void setAlt_documento(boolean alt_documento) {
+		this.alt_documento = alt_documento;
+	}
+
+	public boolean isExc_documento() {
+		return exc_documento;
+	}
+
+	public void setExc_documento(boolean exc_documento) {
+		this.exc_documento = exc_documento;
+	}
+
+	public boolean isIniciar_transacao() {
+		return iniciar_transacao;
+	}
+
+	public void setIniciar_transacao(boolean iniciar_transacao) {
+		this.iniciar_transacao = iniciar_transacao;
+	}
+
+	public boolean isAlt_transacao() {
+		return alt_transacao;
+	}
+
+	public void setAlt_transacao(boolean alt_transacao) {
+		this.alt_transacao = alt_transacao;
+	}
+
+	public boolean isExc_transacao() {
+		return exc_transacao;
+	}
+
+	public void setExc_transacao(boolean exc_transacao) {
+		this.exc_transacao = exc_transacao;
+	}
+
+	public boolean isAlt_camp_ad() {
+		return alt_camp_ad;
+	}
+
+	public void setAlt_camp_ad(boolean alt_camp_ad) {
+		this.alt_camp_ad = alt_camp_ad;
+	}
+
+	public void setId_tipo_doc(Tipo_Documento id_tipo_doc) {
+		this.id_tipo_doc = id_tipo_doc;
 	}
 	
 	

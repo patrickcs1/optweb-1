@@ -3,6 +3,7 @@ package br.com.OPT_WEB_002.tipo_documento_transacao;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -42,6 +43,10 @@ public class Tipo_Documento_Transacao implements Serializable {
 	@OneToOne()
 	@JoinColumn(name = "id_transacao")
 	private Transacao id_transacao;
+	
+
+	@Column(columnDefinition = "BOOLEAN DEFAULT false")	
+	private boolean criacao_trans;
 
 	public Tipo_Documento_Transacao() {
 		
@@ -119,6 +124,7 @@ public class Tipo_Documento_Transacao implements Serializable {
 		result = prime * result + ((cod_empresa == null) ? 0 : cod_empresa.hashCode());
 		result = prime * result + ((cod_filial == null) ? 0 : cod_filial.hashCode());
 		result = prime * result + ((cod_unidade == null) ? 0 : cod_unidade.hashCode());
+		result = prime * result + (criacao_trans ? 1231 : 1237);
 		result = prime * result + ((id_tipo_doc == null) ? 0 : id_tipo_doc.hashCode());
 		result = prime * result + ((id_tipo_doc_trans == null) ? 0 : id_tipo_doc_trans.hashCode());
 		result = prime * result + ((id_transacao == null) ? 0 : id_transacao.hashCode());
@@ -149,6 +155,8 @@ public class Tipo_Documento_Transacao implements Serializable {
 				return false;
 		} else if (!cod_unidade.equals(other.cod_unidade))
 			return false;
+		if (criacao_trans != other.criacao_trans)
+			return false;
 		if (id_tipo_doc == null) {
 			if (other.id_tipo_doc != null)
 				return false;
@@ -165,6 +173,14 @@ public class Tipo_Documento_Transacao implements Serializable {
 		} else if (!id_transacao.equals(other.id_transacao))
 			return false;
 		return true;
+	}
+
+	public boolean isCriacao_trans() {
+		return criacao_trans;
+	}
+
+	public void setCriacao_trans(boolean criacao_trans) {
+		this.criacao_trans = criacao_trans;
 	}
 
 
